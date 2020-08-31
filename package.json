@@ -1,0 +1,18 @@
+{
+  "name": "post-me",
+  "version": "1.0.0",
+  "description": "Una completa guia para convertir una app a una PWA",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -c-1 -o"
+  },
+  "keywords": [
+    "pwa",
+    "post"
+  ],
+  "author": "adry.dabp@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.12.0"
+  }
+}
