@@ -1,9 +1,11 @@
-# Progressive Web Apps - Complete Guide
-This source code is part of Maximilian Schwarzmüller's "Progressive Web Apps - Complete Guide" course on udemy.com.
+# Aplicaciones web progresivas
+Proyecto en el cual se aplicara la mayoria de opciones que se puede emplear en el uso de PWA
 
 # How to Use
-You need [Node.js](https://nodejs.org) installed on your machine. Simply download the installer from [nodejs.org](https://nodejs.org) and go through the installation steps.
+Tener node para poder utilizar npm
 
-Once Node.js is installed, open your command prompt or terminal and **navigate into this project folder**. There, run `npm install` to install all required dependencies.
+Ejecutar el proyecto con 
+```
+$ npm start
 
-Finally, run `npm start` to start the development server and visit [localhost:8080](http://localhost:8080) to see the running application.
+```
