@@ -82,7 +82,7 @@ const createPosts = ({ description, title }) => {
   MAIN.appendChild(mainContent);
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('load', async () => {
   const btnPostCancel = document.querySelector('#btn-post-cancel');
   const btnPostSubmit = document.querySelector('#btn-post-submit');
   const btnShowPost = document.querySelector('#btn-upload-post');
