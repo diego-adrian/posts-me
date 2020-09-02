@@ -1,3 +1,29 @@
+.mdl-snackbar {
+  z-index: 1002;
+}
+.error {
+  background: #ca3a41;
+}
+.success {
+  background: #00600f;
+}
+#loading {
+  display: none;
+}
+.loading {
+  position: fixed;
+  z-index: 1010;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, .8);
+}
+
 .text-center {
   text-align: center;
 }
