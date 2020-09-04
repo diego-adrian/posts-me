@@ -2,7 +2,7 @@
   "short_name": "post me",
   "name": "Post una app para enviar mensajes y contenido multimedia",
   "description": "App desarrollada con PWA",
-  "start_url": ".",
+  "start_url": "index.html",
   "background_color": "#FFFFFF",
   "theme_color": "#9c27b0",
   "orientation": "portrait",
