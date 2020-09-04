@@ -1,7 +1,7 @@
 window.addEventListener('load', async () => {
   try {
     if ('serviceWorker' in navigator) {
-      const response = await navigator.serviceWorker.register('/sw.js');
+      const response = await navigator.serviceWorker.register('sw.js');
       if (response) {
         console.info('Service worker registrado');
       }
