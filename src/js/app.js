@@ -1,3 +1,13 @@
+window.addEventListener('beforeinstallprompt', (e) => {
+  console.log('----------------beforeinstallprompt--------------------');
+  console.log(e);
+  console.log('------------------------------------');
+});
+window.addEventListener('appinstalled', (e) => {
+  console.log('---------------appinstalled---------------------');
+  console.log(e);
+  console.log('------------------------------------');
+});
 window.addEventListener('load', async () => {
   try {
     if ('serviceWorker' in navigator) {
