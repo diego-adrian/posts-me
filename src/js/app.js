@@ -10,12 +10,12 @@ window.addEventListener('appinstalled', (e) => {
 });
 window.addEventListener('load', async () => {
   try {
-    if ('serviceWorker' in navigator) {
-      const response = await navigator.serviceWorker.register('sw.js');
-      if (response) {
-        console.info('Service worker registrado');
-      }
-    }
+    // if ('serviceWorker' in navigator) {
+    //   const response = await navigator.serviceWorker.register('sw.js');
+    //   if (response) {
+    //     console.info('Service worker registrado');
+    //   }
+    // }
     window.Message = (option = 'success', container = document.querySelector('#toast-container')) => {
       container.classList.remove('success');
       container.classList.remove('error');
