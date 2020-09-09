@@ -1,5 +1,5 @@
 {
-  "short_name": "post me",
+  "short_name": "postme",
   "name": "Post una app para enviar mensajes y contenido multimedia",
   "description": "App desarrollada con PWA",
   "start_url": ".",

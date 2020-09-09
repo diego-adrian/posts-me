@@ -1,19 +1,27 @@
-self.addEventListener('install', (e) => {
-  console.log('---------------INSTALL---------------------');
-  console.log(e);
-  console.log('------------------------------------');
-  self.skipWaiting();
+self.addEventListener('install', (event) => {
+  const eventInstall = new Promise((resolve, reject) => {
+    try {
+      console.info('[SW] install ...');
+      resolve();
+    } catch (error) {
+      reject(error.message);
+    }
+  });
+  event.waitUntil(eventInstall);
 });
-self.addEventListener('activate', async (e) => {
-  const claim = await self.clients.claim();
-  console.log('-------------ACTIVATE-----------------------');
-  console.log(claim);
-  console.log('------------------------------------');
+self.addEventListener('activate', async (event) => {
+  console.info('[SW] Activate ...');
 });
 
-self.addEventListener('fetch', (e) => {
-  console.log('------------FETCH------------------------');
-  console.log(e);
-  console.log('------------------------------------');
-  e.respondWith(fetch(e.request));
+self.addEventListener('fetch', (event) => {
+  console.info('[SW] Fetch ...');
+  event.respondWith(fetch(event.request));
+});
+
+self.addEventListener('sync', (event) => {
+  console.info('[SW] Sync ...');
+});
+
+self-addEventListener('push', (event) => {
+  console.info('[SW] Push ...');
 });
