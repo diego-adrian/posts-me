@@ -25,6 +25,21 @@ window.addEventListener('load', async () => {
     window.Loading = (option = 'block') => {
       document.querySelector('#loading').style.display = option;
     };
+    const bannerInstall = document.querySelector('#banner-install');
+    bannerInstall.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const response = await deferredPrompt.userChoice;
+        const data = {
+          timeout: 1500
+        };
+        if (response.outcome === 'dismissed') {
+          data.message = 'El usuario cancelo la instalación';
+          Message('error').MaterialSnackbar.showSnackbar(data);
+        }
+      }
+    });
+
   } catch (error) {
     const data = {
       message: error.message,
