@@ -1,7 +1,7 @@
+let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
-  console.log('----------------beforeinstallprompt--------------------');
-  console.log(e);
-  console.log('------------------------------------');
+  e.preventDefault();
+  deferredPrompt = e;
 });
 window.addEventListener('appinstalled', (e) => {
   console.log('---------------appinstalled---------------------');
