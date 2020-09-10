@@ -93,13 +93,14 @@ window.addEventListener('load', async () => {
     MODAL_POST = document.querySelector('#modal-post-section');
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('q');
-    if (query) {
+    if (query === 'all') {
       // Recuperando todos los registros de firebase
       const allPosts = await db.collection('posts').orderBy('timestamp', 'desc').get();
       allPosts.forEach(post => {
         createPosts(post.data());
       });
-    }
+    } else if (query === 'images') {
+    } else {} 
     window.Message = (option = 'success', container = document.querySelector('#toast-container')) => {
       container.classList.remove('success');
       container.classList.remove('error');

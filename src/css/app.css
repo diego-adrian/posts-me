@@ -1,5 +1,22 @@
 /* Declaracion de variables para el theme del sistema */
 :root {
+  --primary: #795548;
+  --dark-primary: #4b2c20;
+  --light-primary: #a98274;
+  --secondary: #ff9800;
+  --dark-secondary: #c66900;
+  --light-secondary: #ffc947;
+  --gray: #757575;
+  --error: #ca3a41;
+  --success: #00600f;
+  --white: #FFF;
+  --black: #000;
+  --height: calc(100vh - 56px);
+  --width: 100vw;
+  --container: 95%;
+  --fontFamily: "Roboto";
+}
+/* :root {
   --primary: #9c27b0;
   --dark-primary: #6a0080;
   --light-primary: #d05ce3;
@@ -15,15 +32,49 @@
   --width: 100vw;
   --container: 95%;
   --fontFamily: "Roboto";
-}
+} */
 
-body {
+body, html {
   font-family: var(--fontFamily);
 }
 
+.box-shadow-none {
+  box-shadow: none;
+}
+
+#main {
+  height: var(--height);
+}
+
 /* Container */
+#main .index {
+  background: var(--dark-primary);
+  height: var(--height);
+}
+
 #main .card-wide {
   width: var(--width);
+}
+.svg--container {
+  position: relative;
+}
+.svg--container .svg-top {
+  position: absolute;
+  top: 0;
+  background: transparent;
+}
+.svg--container .svg-bottom {
+  position: absolute;
+  bottom: 0;
+  background: transparent;
+}
+.svg--container .computer {
+  height: 210px;
+  background: var(--dark-primary) url('../images/computer.jpg');
+  background-position: bottom;
+  background-size: cover;
+  object-fit: cover;
+  color: var(--white);
 }
 
 /*index.html*/
@@ -40,16 +91,19 @@ body {
 }
 .page--initial i{
   font-size: 4rem;
-  color: var(--dark-primary);
+  color: var(--white);
   min-width: 70px;
   padding: 10px;
   text-align: center;
 }
 .page--initial .description {
+  color: var(--white);
   border-radius: 7px;
-  border: 1px solid var(--dark-primary);
+  /* border: 1px solid rgba(208, 92, 227, .5); */
+  border: 1px solid rgba(255, 201, 71, .5);
   margin: 10px 10px;
   padding: 10px;
+  width: calc(var(--width) - 20px);
 }
 
 /* Configuraciones */
