@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>PostMe</title>
   <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
@@ -15,8 +14,8 @@
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.purple-pink.min.css">
   <link rel="stylesheet" href="src/css/app.css">
   <link rel="manifest" href="manifest.webmanifest"/>
-  <script defer src="src/js/material.min.js"></script>
   <script src="src/js/app.js"></script>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 <body>
   <div id="app">
@@ -34,25 +33,28 @@
         </div>
       </header>
       <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">PostMe</span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">
-            <i class="material-icons">post_add</i>
+          <a class="mdl-navigation__link" href=".">
+            <i class="material-icons dark-primary">home</i>
+            Ir a la página principal
+          </a>
+          <a class="mdl-navigation__link" href="./posts.html?q=all">
+            <i class="material-icons dark-primary">post_add</i>
             Ver publicaciones
           </a>
-          <a class="mdl-navigation__link" href="">
-            <i class="material-icons">camera_alt</i>
+          <a class="mdl-navigation__link" href="./posts.html?q=images">
+            <i class="material-icons dark-primary">camera_alt</i>
             Imagenes
           </a>
-          <a class="mdl-navigation__link" href="">
-            <i class="material-icons">ondemand_video</i>
+          <a class="mdl-navigation__link" href="./posts.html?q=videos">
+            <i class="material-icons dark-primary">ondemand_video</i>
             Videos
           </a>
-          <a class="mdl-navigation__link" href="">
-            <i class="material-icons">music_video</i>
+          <a class="mdl-navigation__link" href="./posts.html?q=audios">
+            <i class="material-icons dark-primary">music_video</i>
             Audios
           </a>
-          <div class="mdl-navigation__link app--install" id="banner-install">
+          <div class="mdl-navigation__link app--install select-none" id="banner-install">
             <div>
               Si te gusto la app puedes instalarla en dispositivo haciendo click en el boton instalar
             </div>
@@ -67,22 +69,22 @@
         <div class="page-content">
           <!-- Contenido Principal -->
           <div id="main">
-            <div class="card-wide mdl-card mdl-shadow--2dp">
+            <div class="card-wide mdl-card">
               <div class="page--initial">
                 <i class="material-icons">emoji_objects</i>
-                <div>
+                <div class="description">
                   Si no quieres olvidarte de una idea, mensaje, palabra, etc... publicala y hazlo persistente.
                 </div>
               </div>
               <div class="page--initial">
                 <i class="material-icons">add_a_photo</i>
-                <div>
+                <div class="description">
                   Si no quieres perder fotos que tomaste de lugares, personas y eventos que te gustaron, publicala para que no se pierda.
                 </div>
               </div>
               <div class="page--initial">
                 <i class="material-icons">video_settings</i>
-                <div>
+                <div class="description">
                   Si no quieres escribir y solo deseas grabar un video o un audio, tambien puedes hacerlo y volverlo un recuerdo para siempre.
                 </div>
               </div>
@@ -111,7 +113,6 @@
             <div class="mdl-card__supporting-text">
               <form action="#">
                 <div class="mdl-grid">
-                  <!-- Textfield with Floating Label -->
                   <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="title">
                     <label class="mdl-textfield__label" for="title">Título</label>
@@ -123,13 +124,11 @@
                   <div class="mdl-cell mdl-cell--12-col">
                     <div class="mdl-grid">
                       <div class="mdl-cell mdl-cell--6-col">
-                        <!-- Accent-colored raised button with ripple -->
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-post-submit">
                           Enviar post
                         </button>
                       </div>
                       <div class="mdl-cell mdl-cell--6-col">
-                        <!-- Accent-colored raised button with ripple -->
                         <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="btn-post-cancel">
                           Cancelar
                         </button>

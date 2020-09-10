@@ -1,14 +1,73 @@
+/* Declaracion de variables para el theme del sistema */
 :root {
   --primary: #9c27b0;
+  --dark-primary: #6a0080;
+  --light-primary: #d05ce3;
   --secondary: #e91e63;
+  --dark-secondary: #b0003a;
+  --light-secondary: #ff6090;
   --gray: #757575;
   --error: #ca3a41;
   --success: #00600f;
   --white: #FFF;
+  --black: #000;
   --height: calc(100vh - 56px);
   --width: 100vw;
   --container: 95%;
   --fontFamily: "Roboto";
+}
+
+body {
+  font-family: var(--fontFamily);
+}
+
+/* Container */
+#main .card-wide {
+  width: var(--width);
+}
+
+/*index.html*/
+.page--initial {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  user-select: none;
+  opacity: .87;
+  color: var(--gray);
+  font-size: 1rem;
+  line-height: 18px;
+  font-weight: 400;
+}
+.page--initial i{
+  font-size: 4rem;
+  color: var(--dark-primary);
+  min-width: 70px;
+  padding: 10px;
+  text-align: center;
+}
+.page--initial .description {
+  border-radius: 7px;
+  border: 1px solid var(--dark-primary);
+  margin: 10px 10px;
+  padding: 10px;
+}
+
+/* Configuraciones */
+.error {
+  background: var(--error);
+}
+.success {
+  background: var(--success);
+}
+.dark-primary {
+  color: var(--dark-primary);
+}
+.dark-secondary {
+  color: var(--dark-secondary);
+}
+
+.select-none {
+  user-select: none;
 }
 
 .card-wide.mdl-card {
@@ -22,34 +81,6 @@
 }
 .card-wide > .mdl-card__menu {
   color: #fff;
-}
-
-#main .card-wide {
-  height: var(--height);
-  width: var(--width);
-}
-
-.page--initial {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  border-radius: 7px;
-  border: 2px solid var(--primary);
-  margin: 10px 10px;
-  user-select: none;
-  padding: 16px;
-  font-family: var(--fontFamily);
-  opacity: .87;
-  color: var(--gray);
-  font-size: 1rem;
-  line-height: 18px;
-  font-weight: 400;
-}
-.page--initial i {
-  font-size: 4rem;
-  color: var(--primary);
-  min-width: 80px;
 }
 
 #modal-post-section {
@@ -99,12 +130,6 @@
 
 .mdl-snackbar {
   z-index: 1002;
-}
-.error {
-  background: var(--error);
-}
-.success {
-  background: var(--success);
 }
 #loading {
   display: none;
