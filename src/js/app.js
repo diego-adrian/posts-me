@@ -91,22 +91,27 @@ window.addEventListener('load', async () => {
   try {
     MAIN = document.querySelector('#main');
     MODAL_POST = document.querySelector('#modal-post-section');
-    const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get('q');
-    if (query === 'all') {
-      // Recuperando todos los registros de firebase
-      const allPosts = await db.collection('posts').orderBy('timestamp', 'desc').get();
-      allPosts.forEach(post => {
-        createPosts(post.data());
-      });
-    } else if (query === 'images') {
-    } else {} 
     window.Message = (option = 'success', container = document.querySelector('#toast-container')) => {
       container.classList.remove('success');
       container.classList.remove('error');
       container.classList.add(option);
       return container;
     };
+    window.Loading = (option = 'block') => {
+      document.querySelector('#loading').style.display = option;
+    };
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('q');
+    if (query === 'all') {
+      Loading();
+      // Recuperando todos los registros de firebase
+      const allPosts = await db.collection('posts').orderBy('timestamp', 'desc').get();
+      allPosts.forEach(post => {
+        createPosts(post.data());
+      });
+      Loading('none');
+    } else if (query === 'images') {
+    } else {} 
     const btnShowPost = document.querySelector('#btn-upload-post');
     btnShowPost.addEventListener('click', showPostModal);
     const btnPostCancel = document.querySelector('#btn-post-cancel');
@@ -119,9 +124,6 @@ window.addEventListener('load', async () => {
         console.info('Service worker registrado');
       }
     }
-    window.Loading = (option = 'block') => {
-      document.querySelector('#loading').style.display = option;
-    };
     const bannerInstall = document.querySelector('#banner-install');
     bannerInstall.addEventListener('click', async () => {
       if (deferredPrompt) {
