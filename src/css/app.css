@@ -95,17 +95,16 @@ body, html {
 .mdl-list__item--three-line {
   height: auto !important;
 }
+.mdl-list__item {
+  letter-spacing: 0;
+}
 .flex-row {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
 }
 .flex-column {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .fs-icon {
@@ -121,6 +120,12 @@ body, html {
 .pt-0 {
   padding-top: 0;
 }
+.pt-1 {
+  padding-top: 5px;
+}
+.pt-2 {
+  padding-top: 10px;
+}
 .pb-0 {
   padding-bottom: 0;
 }
@@ -132,6 +137,12 @@ body, html {
 }
 .mt-0 {
   margin-top: 0;
+}
+.mt-1 {
+  margin-top: 5px;
+}
+.mt-2 {
+  margin-top: 10px;
 }
 .mb-0 {
   margin-bottom: 0;
@@ -152,6 +163,19 @@ body, html {
 
 .select-none {
   user-select: none;
+}
+
+.from--date {
+  padding-top: 10px;
+  font-size: 13px;
+  color: var(--gray);
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.title--description {
+  font-weight: 600;
+  padding: 2px 0;
 }
 
 .card-wide.mdl-card {
