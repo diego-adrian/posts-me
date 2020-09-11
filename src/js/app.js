@@ -48,37 +48,75 @@ const sendData = async (e) => {
     Message('error').MaterialSnackbar.showSnackbar(data);
   }
 };
-const createPosts = ({ description, title }) => {
-  const mainContent = document.createElement('div');
-  mainContent.className = 'card-wide mdl-card mdl-shadow--2dp';
-
-  const cardTitle = document.createElement('div');
-  cardTitle.className = 'mdl-card__title';
-  const h2 = document.createElement('h2');
-  h2.className = 'mdl-card__title-text';
-  h2.appendChild(document.createTextNode(title));
-  cardTitle.appendChild(h2);
-
-  const cardText = document.createElement('div');
-  cardText.className = 'mdl-card__supporting-text';
-  cardText.appendChild(document.createTextNode(description));
+const createPosts = ({ description, title, image }) => {
+  if (image) {
+    const mainContent = document.createElement('div');
+    mainContent.className = 'card-wide mdl-card mdl-shadow--2dp';
   
-  const btnShare = document.createElement('div');
-  btnShare.className = 'mdl-card__menu';
-  const btn = document.createElement('button');
-  btn.className = 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect';
-  const icon = document.createElement('i');
-  icon.className = 'material-icons';
-  icon.appendChild(document.createTextNode('share'));
-
-  btn.appendChild(icon);
-  btnShare.appendChild(btn);
-
-  mainContent.appendChild(cardTitle);
-  mainContent.appendChild(cardText);
-  mainContent.appendChild(btnShare);
+    const cardTitle = document.createElement('div');
+    cardTitle.className = 'mdl-card__title';
+    const h2 = document.createElement('h2');
+    h2.className = 'mdl-card__title-text';
+    h2.appendChild(document.createTextNode(title));
+    cardTitle.appendChild(h2);
   
-  MAIN.appendChild(mainContent);
+    const cardText = document.createElement('div');
+    cardText.className = 'mdl-card__supporting-text';
+    cardText.appendChild(document.createTextNode(description));
+    
+    const btnShare = document.createElement('div');
+    btnShare.className = 'mdl-card__menu';
+    const btn = document.createElement('button');
+    btn.className = 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect';
+    const icon = document.createElement('i');
+    icon.className = 'material-icons';
+    icon.appendChild(document.createTextNode('share'));
+  
+    btn.appendChild(icon);
+    btnShare.appendChild(btn);
+  
+    mainContent.appendChild(cardTitle);
+    mainContent.appendChild(cardText);
+    mainContent.appendChild(btnShare);
+
+    componentHandler.upgradeElement(mainContent);
+    MAIN.appendChild(mainContent);
+  } else {
+    const ul = document.createElement('ul');
+    ul.className = 'demo-list-three mdl-list pt-0 pb-0 mt-0 mb-0';
+    const li = document.createElement('li');
+    li.className = 'mdl-list__item mdl-list__item--three-line';
+    
+    const spanContainer = document.createElement('span');
+    spanContainer.className = 'mdl-list__item-primary-content';
+    const i = document.createElement('i');
+    i.className = 'material-icons mdl-list__item-avatar mdl-color--primary-dark fs-icon flex-row';
+    i.appendChild(document.createTextNode('event_note'));
+    const spanTitle = document.createElement('span');
+    spanTitle.appendChild(document.createTextNode(title));
+    const spanDescription = document.createElement('span');
+    spanDescription.className = 'mdl-list__item-text-body';
+    spanDescription.appendChild(document.createTextNode(description));
+    spanContainer.appendChild(i);
+    spanContainer.appendChild(spanTitle);
+    spanContainer.appendChild(spanDescription);
+    li.appendChild(spanContainer);
+    
+    const spanShare = document.createElement('span');
+    spanShare.className = 'mdl-list__item-secondary-content';
+    const divEnlace = document.createElement('div');
+    divEnlace.className = 'mdl-list__item-secondary-action';
+    const iEnlace = document.createElement('i');
+    iEnlace.className = 'material-icons select-none';
+    iEnlace.appendChild(document.createTextNode('more_vert'));
+    divEnlace.appendChild(iEnlace);
+    spanShare.appendChild(divEnlace);
+    li.appendChild(spanShare);
+    ul.appendChild(li);
+
+    componentHandler.upgradeElement(ul);
+    MAIN.appendChild(ul);
+  }
 };
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
