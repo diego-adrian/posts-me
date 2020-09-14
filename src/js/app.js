@@ -124,7 +124,7 @@ const createPosts = ({ description, title, image, timestamp }) => {
 const share = async (title, description) => {
   if (navigator.share) {
     const data = {
-      title,
+      title: title,
       text: description
     };
     await navigator.share(data);
