@@ -12,7 +12,7 @@
   --white: #FFF;
   --black: #000;
   --height: calc(100vh - 56px);
-  --width: 100vw;
+  --width: 100%;
   --container: 95%;
   --fontFamily: "Roboto";
 }
@@ -147,6 +147,9 @@ body, html {
 .mb-0 {
   margin-bottom: 0;
 }
+.mb-1 {
+  margin-bottom: 5px;
+}
 .ml-0 {
   margin-left: 0;
 }
@@ -159,6 +162,50 @@ body, html {
 }
 .success {
   background: var(--success);
+}
+
+#image--section {
+  width: var(--width);
+  display: none;
+}
+#image-progress {
+  display: none;
+}
+.upload-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: var(--width);
+}
+
+.upload-btn button {
+  border: 2px solid gray;
+  color: var(--primary);
+  background-color: var(--white);
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.upload-btn input[type=file] {
+  font-size: 30px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+#preview--image {
+  height: 150px;
+  margin-bottom: 5px;
+  border-radius: 7px;
+  object-fit: cover;
+  width: var(--width);
+  object-position: center;
+}
+#preview--image {
+  display: none;
 }
 
 .select-none {
@@ -182,10 +229,11 @@ body, html {
   width: 100%;
 }
 .card-wide > .mdl-card__title {
-  color: #fff;
+  color: var(--white);
   height: 176px;
   object-fit: cover;
-  background: url('../images/pwa.jpg') center / cover;
+  background-position: center;
+  background-size: contain !important;
 }
 .card-wide > .mdl-card__menu {
   color: #fff;

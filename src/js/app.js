@@ -1,6 +1,9 @@
 let deferredPrompt;
 let MAIN;
 let MODAL_POST;
+let UPLOAD_IMAGE;
+let TITLE;
+let DESCRIPTION;
 const showPostModal = () => {
   MAIN.style.display = 'none';
   MODAL_POST.style.display = 'block';
@@ -15,16 +18,40 @@ const closePostModal = () => {
 const sendData = async (e) => {
   try {
     e.preventDefault();
-    const title = document.querySelector('#title');
-    const description = document.querySelector('#description');
-    if (title.value && description.value) {
-      Loading();
-      await db.collection('posts').add({
-        title: title.value,
-        description: description.value,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      Loading('none');
+    TITLE = document.querySelector('#title').value;
+    DESCRIPTION = document.querySelector('#description').value;
+    if (TITLE && DESCRIPTION) {
+      const file = UPLOAD_IMAGE ? UPLOAD_IMAGE.files[0] : null;
+      if (file) {
+        Loading();
+        const metadata = {
+          contentType: 'image/jpeg',
+        };
+        const uploadFile = storageRef.child(`images/${file.name}`).put(file, metadata);
+        uploadFile.on('state_changed', (snapshot) => {
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        }, (error) => {
+          throw new Error(error.message);
+        }, async () => {
+          const urlImage = await uploadFile.snapshot.ref.getDownloadURL();
+          await db.collection('posts').add({
+            image: urlImage,
+            title: TITLE,
+            description: DESCRIPTION,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          Loading('none');
+        });
+      } else {
+        Loading();
+        await db.collection('posts').add({
+          title: TITLE,
+          description: DESCRIPTION,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        Loading('none');
+      }
       document.forms[0].reset();
       const data = {
         message: 'Registro exitosamente almacenado',
@@ -57,21 +84,23 @@ const createPosts = ({ description, title, image, timestamp }) => {
   
     const cardTitle = document.createElement('div');
     cardTitle.className = 'mdl-card__title';
+    cardTitle.style.background = `url(${image})`;
     const h2 = document.createElement('h2');
-    h2.className = 'mdl-card__title-text';
+    h2.className = 'mdl-card__title-text select-none';
     h2.appendChild(document.createTextNode(title));
     cardTitle.appendChild(h2);
   
     const cardText = document.createElement('div');
-    cardText.className = 'mdl-card__supporting-text';
+    cardText.className = 'mdl-card__supporting-text select-none';
     cardText.appendChild(document.createTextNode(description));
-    
+
     const btnShare = document.createElement('div');
     btnShare.className = 'mdl-card__menu';
     const btn = document.createElement('button');
     btn.className = 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect';
+    btn.addEventListener('click', () => share(title, description, image));
     const icon = document.createElement('i');
-    icon.className = 'material-icons';
+    icon.className = 'material-icons mdl-color-text--orange';
     icon.appendChild(document.createTextNode('share'));
   
     btn.appendChild(icon);
@@ -96,7 +125,7 @@ const createPosts = ({ description, title, image, timestamp }) => {
     const cardTextDate = document.createElement('div');
     cardTextDate.className = 'from--date flex-row';
     const iconDate = document.createElement('i');
-    iconDate.className = 'material-icons mdl-color-text--primary';
+    iconDate.className = 'material-icons mdl-color-text--orange';
     iconDate.appendChild(document.createTextNode('access_time'));
     cardTextDate.appendChild(iconDate);
     cardTextDate.appendChild(document.createTextNode(`Publicado ${UNIX}`));
@@ -109,7 +138,7 @@ const createPosts = ({ description, title, image, timestamp }) => {
     btn.className = 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-color-text--primary mt-2';
     btn.addEventListener('click', () => share(title, description));
     const icon = document.createElement('i');
-    icon.className = 'material-icons';
+    icon.className = 'material-icons mdl-color-text--orange';
     icon.appendChild(document.createTextNode('more_vert'));
     btn.appendChild(icon);
     cardTextShare.appendChild(btn);
@@ -121,19 +150,43 @@ const createPosts = ({ description, title, image, timestamp }) => {
     MAIN.appendChild(cardText);
   }
 };
-const share = async (t, d) => {
-  if (navigator.share) {
-    const data = {
-      title: t,
-      text: d
-    };
-    await navigator.share(data);
+const share = async (title, text, image) => {
+  if (image) {
+    let imgBlob = await fetch(image, {
+      mode: 'cors'
+    });
+    imgBlob = await imgBlob.blob();
+    console.log('------------------------------------');
+    console.log(imgBlob);
+    console.log('------------------------------------');
+
+    if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+    }
   } else {
-    const data = {
-      message: 'Tu navegador no soporta la opción de compartir'
-    };
-    Message('error').MaterialSnackbar.showSnackbar(data);;
+    if (navigator.share) {
+      const data = {
+        title,
+        text
+      };
+      await navigator.share(data);
+    } else {
+      const data = {
+        message: 'Tu navegador no soporta la opción de compartir'
+      };
+      Message('error').MaterialSnackbar.showSnackbar(data);
+    }
   }
+};
+
+const uploadImage = ({ files }) => {
+  const reader = new FileReader();
+  const img = document.querySelector('#preview--image');
+  img.style.display = 'block';
+  reader.addEventListener('load', async (event) => {
+    img.src = event.target.result;
+    document.querySelector('#image-progress').style.display = 'block';
+  });
+  reader.readAsDataURL(files[0]);
 };
 
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -147,6 +200,7 @@ window.addEventListener('load', async () => {
   try {
     MAIN = document.querySelector('#main');
     MODAL_POST = document.querySelector('#modal-post-section');
+    UPLOAD_IMAGE = document.querySelector('#upload-image');
     if ('serviceWorker' in navigator) {
       const response = await navigator.serviceWorker.register('sw.js');
       if (response) {
@@ -173,13 +227,20 @@ window.addEventListener('load', async () => {
       });
       Loading('none');
     } else if (query === 'images') {
-    } else {} 
+      document.querySelector('#image--section').style.display = 'block';
+      document.querySelector('#image-progress').addEventListener('mdl-componentupgraded', function () {
+        this.MaterialProgress.setProgress(10);
+        this.MaterialProgress.setBuffer(15);
+      });
+    } else {
+      document.querySelector('#image--section').style.display = 'none';
+    } 
     const btnShowPost = document.querySelector('#btn-upload-post');
     btnShowPost.addEventListener('click', showPostModal);
     const btnPostCancel = document.querySelector('#btn-post-cancel');
     const btnPostSubmit = document.querySelector('#btn-post-submit');
     btnPostCancel.addEventListener('click', closePostModal);
-    btnPostSubmit.addEventListener('click', sendData);
+    btnPostSubmit.addEventListener('click', (e) => sendData(e));
     const bannerInstall = document.querySelector('#banner-install');
     bannerInstall.addEventListener('click', async () => {
       if (deferredPrompt) {

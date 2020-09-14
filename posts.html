@@ -7,6 +7,7 @@
   <title>PostMe</title>
   <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
   <script src="src/js/firebase.js"></script>
   <meta name="theme-color" content="#4b2c20">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -95,7 +96,14 @@
             <div class="mdl-card__supporting-text">
               <form action="#">
                 <div class="mdl-grid">
-                  <!-- Textfield with Floating Label -->
+                  <div id="image--section">
+                    <img id="preview--image"></img>
+                    <div id="image-progress" class="mdl-progress mdl-js-progress mb-1"></div>
+                    <div class="upload-btn">
+                      <button>Subir imagen</button>
+                      <input type="file" accept="image/*" id="upload-image" onchange="uploadImage(this)"/>
+                    </div>
+                  </div>
                   <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="title">
                     <label class="mdl-textfield__label" for="title">Título</label>
@@ -107,13 +115,11 @@
                   <div class="mdl-cell mdl-cell--12-col">
                     <div class="mdl-grid">
                       <div class="mdl-cell mdl-cell--6-col">
-                        <!-- Accent-colored raised button with ripple -->
                         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="btn-post-submit">
                           Enviar post
                         </button>
                       </div>
                       <div class="mdl-cell mdl-cell--6-col">
-                        <!-- Accent-colored raised button with ripple -->
                         <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="btn-post-cancel">
                           Cancelar
                         </button>
