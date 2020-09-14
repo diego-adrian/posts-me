@@ -107,6 +107,7 @@ const createPosts = ({ description, title, image, timestamp }) => {
     cardTextShare.className = 'mdl-typography--text-center';
     const btn = document.createElement('button');
     btn.className = 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-color-text--primary mt-2';
+    btn.addEventListener('click', () => share(description, title));
     const icon = document.createElement('i');
     icon.className = 'material-icons';
     icon.appendChild(document.createTextNode('more_vert'));
@@ -120,6 +121,21 @@ const createPosts = ({ description, title, image, timestamp }) => {
     MAIN.appendChild(cardText);
   }
 };
+const share = async () => {
+  if (navigator.share) {
+    const data = {
+      title,
+      text: description
+    };
+    await navigator.share(data);
+  } else {
+    const data = {
+      message: 'Tu navegador no soporta la opción de compartir'
+    };
+    Message('error').MaterialSnackbar.showSnackbar(data);;
+  }
+};
+
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
