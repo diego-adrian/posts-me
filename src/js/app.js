@@ -121,11 +121,11 @@ const createPosts = ({ description, title, image, timestamp }) => {
     MAIN.appendChild(cardText);
   }
 };
-const share = async (title, description) => {
+const share = async (t, d) => {
   if (navigator.share) {
     const data = {
-      title: title,
-      text: description
+      title: t,
+      text: d
     };
     await navigator.share(data);
   } else {
