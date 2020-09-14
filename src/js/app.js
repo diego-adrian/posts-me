@@ -107,7 +107,7 @@ const createPosts = ({ description, title, image, timestamp }) => {
     cardTextShare.className = 'mdl-typography--text-center';
     const btn = document.createElement('button');
     btn.className = 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-color-text--primary mt-2';
-    btn.addEventListener('click', () => share(description, title));
+    btn.addEventListener('click', () => share(title, description));
     const icon = document.createElement('i');
     icon.className = 'material-icons';
     icon.appendChild(document.createTextNode('more_vert'));
@@ -125,8 +125,7 @@ const share = async (title, description) => {
   if (navigator.share) {
     const data = {
       title,
-      text: description,
-      url: window.location.href
+      text: description
     };
     await navigator.share(data);
   } else {
