@@ -153,7 +153,7 @@ const createPosts = ({ description, title, image, timestamp }) => {
 const share = async (title, text, image) => {
   if (image) {
     let imgBlob = await fetch(image, {
-      mode: 'cors'
+      mode: 'no-cors'
     });
     imgBlob = await imgBlob.blob();
     console.log('------------------------------------');
