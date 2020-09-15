@@ -168,6 +168,10 @@ body, html {
   width: var(--width);
   display: none;
 }
+#audio--section {
+  width: var(--width);
+  display: none;
+}
 #image-progress {
   display: none;
 }

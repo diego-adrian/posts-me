@@ -152,15 +152,27 @@ const createPosts = ({ description, title, image, timestamp }) => {
 };
 const share = async (title, text, image) => {
   if (image) {
-    let imgBlob = await fetch(image, {
-      mode: 'no-cors'
-    });
-    imgBlob = await imgBlob.blob();
+    const url = URL.createObjectURL(image);
     console.log('------------------------------------');
-    console.log(imgBlob);
+    console.log(url);
     console.log('------------------------------------');
+    // let imgBlob = await fetch(image, {
+    //   mode: 'no-cors',
+    //   responseType: 'blob',
+    //   method: 'GET'
+    // });
+    // imgBlob = await imgBlob.blob();
+    // console.log('------------------------------------');
+    // console.log(imgBlob);
+    // console.log('------------------------------------');
 
-    if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+    if (navigator.canShare && navigator.canShare({ files: [image] })) {
+      const data = {
+        files: [image],
+        title,
+        text
+      };
+      await navigator.share(data);
     }
   } else {
     if (navigator.share) {
@@ -232,9 +244,16 @@ window.addEventListener('load', async () => {
         this.MaterialProgress.setProgress(10);
         this.MaterialProgress.setBuffer(15);
       });
+    } else if (query === 'audios') {
+      document.querySelector('#audio--section').style.display = 'block';
     } else {
-      document.querySelector('#image--section').style.display = 'none';
-    } 
+      if (document.querySelector('#image--section')) {
+        document.querySelector('#image--section').style.display = 'none';
+      }
+      if (document.querySelector('#audio--section')) {
+        document.querySelector('#audio--section').style.display = 'none';
+      }
+    }
     const btnShowPost = document.querySelector('#btn-upload-post');
     btnShowPost.addEventListener('click', showPostModal);
     const btnPostCancel = document.querySelector('#btn-post-cancel');
