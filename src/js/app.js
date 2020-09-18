@@ -230,10 +230,7 @@ window.addEventListener('load', async () => {
       const response = await navigator.serviceWorker.register('sw.js');
       if (response) {
         const ready = await navigator.serviceWorker.ready;
-        ready.showNotification('Hola mundo', {
-          body: 'Este sera un mensaje mas largo',
-          vibrate: [200, 100, 200, 100, 200, 100, 200]
-        });
+        ready.showNotification('Hola mundo');
       }
     }
     window.Loading = (option = 'block') => {
