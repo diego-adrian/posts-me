@@ -205,26 +205,37 @@ window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
 });
+
+// 
+
 window.addEventListener('appinstalled', (e) => {
   console.info('APP Installed');
 });
+
+
+
 window.addEventListener('load', async () => {
   try {
+    await Notification.requestPermission();
     MAIN = document.querySelector('#main');
     MODAL_POST = document.querySelector('#modal-post-section');
     UPLOAD_IMAGE = document.querySelector('#upload-image');
-    if ('serviceWorker' in navigator) {
-      const response = await navigator.serviceWorker.register('sw.js');
-      if (response) {
-        console.info('Service worker registrado');
-      }
-    }
     window.Message = (option = 'success', container = document.querySelector('#toast-container')) => {
       container.classList.remove('success');
       container.classList.remove('error');
       container.classList.add(option);
       return container;
     };
+    if ('serviceWorker' in navigator) {
+      const response = await navigator.serviceWorker.register('sw.js');
+      if (response) {
+        const ready = await navigator.serviceWorker.ready;
+        ready.showNotification('Hola mundo', {
+          body: 'Este sera un mensaje mas largo',
+          vibrate: [200, 100, 200, 100, 200, 100, 200]
+        });
+      }
+    }
     window.Loading = (option = 'block') => {
       document.querySelector('#loading').style.display = option;
     };

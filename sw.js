@@ -1,27 +1,30 @@
 self.addEventListener('install', (event) => {
-  const eventInstall = new Promise((resolve, reject) => {
-    try {
-      console.info('[SW] install ...');
-      resolve();
-    } catch (error) {
-      reject(error.message);
-    }
-  });
-  event.waitUntil(eventInstall);
+  // GUARDAR EN CACHE LOS ARCHIVOS
+  console.log('------------------------------------');
+  console.log('[SW]: installando service worker');
+  console.log('------------------------------------');
+  self.skipWaiting();
+  // event.waitUntil();
 });
-self.addEventListener('activate', async (event) => {
-  console.info('[SW] Activate ...');
+
+self.addEventListener('activate', (event) => {
+  // BORRAR CACHE VIEJO
+  console.log('------------------------------------');
+  console.log('[SW]: Activando SW');
+  console.log('------------------------------------');
+  // event.waitUntil();
 });
 
 self.addEventListener('fetch', (event) => {
-  console.info('[SW] Fetch ...');
-  event.respondWith(fetch(event.request));
+  // console.log('------------------------------------');
+  // console.log(event.request.url);
+  // console.log('------------------------------------');
+  event.respondWith(fetch(event.request.clone()));
 });
 
 self.addEventListener('sync', (event) => {
-  console.info('[SW] Sync ...');
-});
-
-self-addEventListener('push', (event) => {
-  console.info('[SW] Push ...');
+  // IndexDB bases de datos
+  console.log('------------------------------------');
+  console.log(event);
+  console.log('------------------------------------');
 });
